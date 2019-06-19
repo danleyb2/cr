@@ -1,0 +1,23 @@
+# minimal
+Django==2.1.9
+Pillow==6.0.0
+
+# tasks
+celery==4.3.0
+redis==3.2.1
+
+# database drivers
+psycopg2-binary==2.8.3
+
+# utility extensions
+django-extensions==2.1.9
+
+# debugging
+django-debug-toolbar==1.11
+django-debug-toolbar-template-timings==0.9
+
+# others
+requests==2.22.0
+
+# production
+uWSGI==2.0.18
