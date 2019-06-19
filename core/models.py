@@ -29,3 +29,14 @@ class SampleModel(models.Model):
 
 # post_delete.connect(file_cleanup, sender=SalesNavigatorAccount)
 
+class Company(models.Model):
+    name = models.CharField(max_length=200)
+    website = models.URLField()
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=50)
+    product_page = models.URLField(help_text='Solar light Product Page')
+
+    freelancer = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}'.format(self.name)

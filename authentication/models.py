@@ -101,7 +101,6 @@ class User(AbstractUser):
     )
 
     phone = models.CharField(max_length=8, unique=True, blank=True, null=True)
-    company = models.CharField(max_length=100, blank=True, null=True)
     photo = models.ImageField(upload_to='profiles/images/%d')  # todo include current date
 
     # created_at = this is already here as date_joined

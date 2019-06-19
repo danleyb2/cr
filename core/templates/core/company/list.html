@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% load web_filters %}
+
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for company in companies %}
+
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+
+     {% if companies.has_other_pages %}<nav>
+        <ul class="pagination justify-content-center mt-2">
+            {% if companies.has_previous %}
+                <li class="page-item ">
+                    <a class="page-link" href="?page={{ companies.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item  disabled"><a class="page-link">Previous</a></li>
+            {% endif %}
+            <li class="active page-item"><a class="page-link"> Page {{ companies.number }} of {{ companies.paginator.num_pages }} </a></li>
+            {% if companies.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ companies.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
+                </li>
+            {% else %}
+                <li class="disabled page-item"><a class="page-link">Next</a></li>
+            {% endif %}
+        </ul></nav>
+     {% endif %}
+
+{% endblock %}
