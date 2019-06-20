@@ -93,6 +93,7 @@ class User(AbstractUser):
         max_length=150,
         # widget=forms.TextInput(attrs={'autofocus': True}),
         unique=True,
+        null=True,
         help_text=_('Required. <br> 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
         validators=[AbstractUser.username_validator],
         error_messages={
@@ -129,9 +130,9 @@ def create_primary_email(sender, instance, created, **kwargs):
         Email.objects.create(user=instance,email=instance.email)
 
 
-@receiver(post_save, sender=User)
+# @receiver(post_save, sender=User)
 def send_verification_email(sender, instance, created, **kwargs):
-    if created and \
+    if created and\
             not instance.is_superuser: # don't send emails for `createsuperuser` management command
         if settings.PORT == 443 or settings.PORT == 80:
             PORT = ''
@@ -148,4 +149,4 @@ def send_verification_email(sender, instance, created, **kwargs):
             'token': default_token_generator.make_token(instance),
         })
 
-        instance.email_user(subject, message, from_email='salesleadgen@mohit-development.website')
+        instance.email_user(subject, message, from_email='noreply@cr.com')

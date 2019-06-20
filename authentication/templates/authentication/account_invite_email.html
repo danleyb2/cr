@@ -1,8 +1,10 @@
 {% autoescape off %}
 
-Login credentials <br>
-Your Email <br>
-Password <strong>{{ password }}</strong> <br>
+Login credentials 
+
+Email: This Email, 
+Password : {{ password }} 
+
 Please click on the link below to activate your account and complete registration:
 {{ protocol }}://{{ domain }}{% url 'authentication:invite-accept' uidb64=uid token=token %}
 {% endautoescape %}

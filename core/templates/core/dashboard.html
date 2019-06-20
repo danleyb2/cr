@@ -4,14 +4,18 @@
 
 {% block content %}
 
-
-    total records summary
-total freelancers summary
-invites sent
-registered
-
+{% if request.user.is_superuser %}
+    total records {{companies_count}} <br>
+total freelancers {{freelancers_count}} <br>
+invites pending {{pending_freelancers_count}} <br>
+invites accepted {{active_freelancers_count}}
 
 <br>
 <a href="{% url 'authentication:invite' %}">invite freelancer</a>
+
+{% else %}
+Records {{companies_count}} <br>
+
+{% endif%}
 
 {% endblock %}

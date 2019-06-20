@@ -3,7 +3,7 @@
 
 {% block content %}
 
-        <form action="{% url 'core:credentials:create' %}" method="post">
+        <form action="{% url 'core:records:create' %}" method="post">
             {% csrf_token %}
 
             <div class="row" style="margin-top: 3%;">

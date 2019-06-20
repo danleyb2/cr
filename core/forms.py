@@ -29,7 +29,7 @@ class CompanyForm(forms.ModelForm):
         #     )
         # )
 
-    def clean(self):
+    def clean2(self):
         super(CompanyForm, self).clean()
         lgr.info('clean SampleModelForm')
 

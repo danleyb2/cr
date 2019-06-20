@@ -5,7 +5,7 @@
 {% block app %}
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">CR</a>
+            <a class="navbar-brand" href="{% url 'core:dashboard' %}">CR</a>
             <button class="navbar-toggler"
                     type="button"
                     data-toggle="collapse"
@@ -18,11 +18,11 @@
 
                     {% if request.user.is_superuser %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Freelancers</a>
+                        <a class="nav-link" href="{% url 'core:freelancers:list' %}">Freelancers</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Records</a>
+                        <a class="nav-link" href="{% url 'core:records:list' %}">Records</a>
                     </li>
 
 
@@ -57,7 +57,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>2019 - django-starter</p>
+                        <p>2019 - companies-recorder</p>
                     </div>
                 </div>
             </div>

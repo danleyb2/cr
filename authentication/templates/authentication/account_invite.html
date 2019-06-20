@@ -1,5 +1,6 @@
 {% extends 'authentication/layout.html' %}
 {% load static %}
+{% load web_filters %}
 
 {% block content %}
     <div class="row">
@@ -12,10 +13,36 @@
             <div class="text-center mt-2">
                 <form action="{% url 'authentication:invite' %}" method="post">
                     {% csrf_token %}
-                    {{form.as_p}}
-                    <input type="submit" name="submit" class="btn btn-primary" value="Send">
+
+                    {% for field in form %}
+                        <div class="form-group">
+
+
+                            {% if field.name == 'industry' %}
+
+                                <label for="industry">Industry</label>
+                                <select id="industry"
+                                        name="industry"
+                                        class="custom-select ta" data-type="INDUSTRY"
+                                        multiple></select>
+
+                           {% else %}
+
+                            {{ field.label_tag }}
+                            {{ field|addclass:'form-control' }}
+                            <small> {{ field.help_text|safe }}</small>
+
+                            {% endif %}
+                            {% include 'partial/field_error.html' %}
+
+                        </div>
+
+                    {% endfor %}
+
+                    <input type="submit" name="submit" class="btn btn-primary form-control" value="Send">
 
                 </form>
+                <a href="/">Back</a>
             </div>
 
 
