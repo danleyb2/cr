@@ -3,17 +3,46 @@
 
 
 {% block content %}
-
     {% if request.user.is_staff %}
-    <a href="{% url 'authentication:invite' %}" class="btn btn-primary">invite freelancer</a>
-    {% endif %}
+<a href="{% url 'core:freelancers:freelancer:records-paid' freelancer_pk %}" class="btn btn-danger">Mark All Paid</a>
+{% endif %}
+
+    <div class="row justify-content-between">
+
+    <div class="card text-white bg-secondary col" style="max-width: 18rem;">
+<div class="card-header">Total</div>
+<div class="card-body">
+<h4 class="card-title">{{total}}</h4>
+</div>
+</div>
+
+
+    <div class="card text-white bg-secondary col" style="max-width: 18rem;">
+<div class="card-header">Paid</div>
+<div class="card-body">
+<h4 class="card-title">{{paid_count}}</h4>
+</div>
+</div>
+
+    <div class="card text-white bg-secondary col" style="max-width: 18rem;">
+<div class="card-header">Pending</div>
+<div class="card-body">
+<h4 class="card-title">{{not_paid_count}}</h4>
+</div>
+</div>
+
+    </div>
+
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Website</th>
       <th scope="col">Email</th>
-      <th scope="col">Status</th>
-      <th scope="col">Records</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Product Page</th>
+      <th scope="col">Paid</th>
     </tr>
   </thead>
   <tbody>
@@ -22,20 +51,24 @@
 
     <tr>
       <th scope="row">{{company.pk}}</th>
+      <td>{{company.name}}</td>
+      <td>{{company.website}}</td>
       <td>{{company.email}}</td>
-      <td>{% if company.is_active %} active  {% else %} pending {%endif%}</td>
-      <td>
+      <td>{{company.phone_number}}</td>
+      <td> <a href="{{company.product_page}}">Product Page</a></td>
 
-          {{company.company_set.count}}
-                {% if request.user.is_staff %}
-    <a href="{% url 'core:freelancers:freelancer:records' company.pk %}" class="btn btn-primary">Mark Paid</a>
-    {% endif %}
-      </td>
+    <td>
+        {% if company.paid %}
+            True
+            {% else %}
+            False
+        {% endif %}
+    </td>
+
     </tr>
-
     {% empty %}
 
-    <tr><td>No Freelancers Yet</td></tr>
+    <tr>  <td> No Companies Yet</td></tr>
 
     {% endfor %}
   </tbody>

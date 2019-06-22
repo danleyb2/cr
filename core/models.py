@@ -39,5 +39,7 @@ class Company(models.Model):
     freelancer = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    paid = models.BooleanField(default=False)
+
     def __str__(self):
         return '{}'.format(self.name)

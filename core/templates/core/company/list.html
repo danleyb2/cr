@@ -4,7 +4,11 @@
 
 {% block content %}
 
-<a href="{% url 'core:records:create' %}">Create Record</a>
+<a href="{% url 'core:records:create' %}" class="btn btn-primary">Create Record</a>
+
+    {% if request.user.is_staff %}
+<a href="{% url 'core:records:export' %}" class="btn btn-success">Export Records</a>
+{% endif %}
 
 <table class="table">
   <thead>

@@ -5,17 +5,51 @@
 {% block content %}
 
 {% if request.user.is_superuser %}
-    total records {{companies_count}} <br>
-total freelancers {{freelancers_count}} <br>
-invites pending {{pending_freelancers_count}} <br>
-invites accepted {{active_freelancers_count}}
-
+<a href="{% url 'authentication:invite' %}" class="btn btn-primary">invite freelancer</a>
 <br>
-<a href="{% url 'authentication:invite' %}">invite freelancer</a>
+<br>
+<div class="row justify-content-around mb-3">
+<div class="card text-white bg-secondary  col" style="max-width: 18rem;">
+<div class="card-header">Total Records</div>
+<div class="card-body">
+<h4 class="card-title">{{companies_count}}</h4>
+</div>
+</div>
 
-{% else %}
-Records {{companies_count}} <br>
+
+
+<div class="card text-white bg-secondary col" style="max-width: 18rem;">
+<div class="card-header">Total Freelancers</div>
+<div class="card-body">
+<h4 class="card-title">{{freelancers_count}}</h4>
+    <p class="card-text">Total invites sent</p>
+</div>
+</div>
+
+<div class="card text-white bg-secondary col" style="max-width: 18rem;">
+<div class="card-header">Invites Pending</div>
+<div class="card-body">
+<h4 class="card-title">{{pending_freelancers_count}}</h4>
+</div>
+</div>
+
+<div class="card text-white bg-secondary col" style="max-width: 18rem;">
+<div class="card-header">Invites Accepted</div>
+<div class="card-body">
+<h4 class="card-title">{{active_freelancers_count}}</h4>
+</div>
+</div>
 
 {% endif%}
+
+
+<div class="card text-white bg-secondary col" style="max-width: 18rem;">
+<div class="card-header">Records</div>
+<div class="card-body">
+<h4 class="card-title">{{companies_count}}</h4>
+</div>
+</div>
+
+</div>
 
 {% endblock %}

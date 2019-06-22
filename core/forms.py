@@ -19,7 +19,7 @@ class CompanyForm(forms.ModelForm):
 
     class Meta:
         model = Company
-        exclude = ['freelancer', ]
+        exclude = ['freelancer','paid' ]
 
     def __init__(self, *args, **kwargs):
         super(CompanyForm, self).__init__(*args, **kwargs)

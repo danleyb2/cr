@@ -10,7 +10,7 @@
                 <img src="{% static 'images/logo.png' %}" alt="" style="width: 100%;"/>
             </div>
 
-            <div class="text-center mt-2">
+            <div class="mt-2">
                 <form action="{% url 'authentication:invite' %}" method="post">
                     {% csrf_token %}
 
@@ -30,7 +30,7 @@
 
                             {{ field.label_tag }}
                             {{ field|addclass:'form-control' }}
-                            <small> {{ field.help_text|safe }}</small>
+                            <small class="form-text text-muted"> {{ field.help_text|safe }}</small>
 
                             {% endif %}
                             {% include 'partial/field_error.html' %}

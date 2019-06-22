@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, reverse
 from core.forms import CompanyForm
 from core.models import Company
@@ -60,6 +60,87 @@ def record_list(request):
     }
 
     return  render(request, 'core/company/list.html',context)
+
+
+
+def freelancer_records(request,freelancer_pk):
+    contacts_qs = Company.objects.filter(freelancer__pk=freelancer_pk).order_by('created_at')
+
+    total = contacts_qs.count()
+    paid_count = contacts_qs.filter(paid=True).count()
+    not_paid_count = contacts_qs.filter(paid=False).count()
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(contacts_qs, 50)
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(1)
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
+
+    context = {
+        'freelancer_pk':freelancer_pk,
+        'companies':contacts,
+        'total':total,
+        'paid_count':paid_count,
+        'not_paid_count':not_paid_count
+    }
+
+    return  render(request, 'core/freelancer/records.html',context)
+
+
+
+def freelancer_records_paid(request,freelancer_pk):
+    contacts_qs = Company.objects.filter(freelancer__pk=freelancer_pk).update(paid=True)
+
+    return  redirect(reverse('core:freelancers:freelancer:records',args={freelancer_pk}))
+
+
+
+import csv
+import datetime
+
+def export(request):
+
+    now = datetime.datetime.now()
+
+    filename = now.strftime("records_%B_%d_%Y__%H_%M")
+
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(filename)
+
+    contacts_qs = Company.objects.all().order_by('created_at')
+
+    writer = csv.writer(response)
+    writer.writerow([
+        'id',
+        'name',
+        'website',
+        'email',
+        'phone_number',
+        'product_page',
+    ])
+
+    pk = None
+    try:
+        for li in contacts_qs:
+            pk = li.id
+            writer.writerow([
+                li.pk,
+                li.name,
+                li.website,
+                li.phone_number,
+                li.product_page
+            ])
+    except Exception as e:
+        lgr.info(pk)
+        raise
+
+    return response
+
 
 
 def freelancer_list(request):
